@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron src/index.js",
-    "dev": "electron src/index.js --dev" 
+    "dev": "electron src/index.js --dev"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,21 @@
   },
   "homepage": "https://github.com/araujoigor/apexed#readme",
   "devDependencies": {
-    "electron": "^1.6.2"
+    "electron": "^1.6.2",
+    "typescript": "~2.2.0"
   },
   "dependencies": {
-    "ace-builds": "^1.2.6"
+    "ace-builds": "^1.2.6",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
   }
 }
