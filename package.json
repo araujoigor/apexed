@@ -1,0 +1,33 @@
+{
+  "name": "apexed",
+  "version": "0.0.1",
+  "description": "Graphical User Interface for RealTime Apex and SOQL execution",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron src/index.js",
+    "dev": "electron src/index.js --dev" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/araujoigor/apexed.git"
+  },
+  "keywords": [
+    "SOQL",
+    "Apex",
+    "Salesforce",
+    "electron"
+  ],
+  "author": "Igor Araujo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/araujoigor/apexed/issues"
+  },
+  "homepage": "https://github.com/araujoigor/apexed#readme",
+  "devDependencies": {
+    "electron": "^1.6.2"
+  },
+  "dependencies": {
+    "ace-builds": "^1.2.6"
+  }
+}
