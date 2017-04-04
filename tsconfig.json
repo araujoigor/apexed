@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "./gen/bundle",
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
@@ -9,12 +9,17 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "module": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2016",
+      "es2015",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "genDir": "./gen/aot",
+    "skipMetadataEmit" : true
   }
 }

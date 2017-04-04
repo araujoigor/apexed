@@ -1,2 +1,7 @@
 .vscode/
 node_modules/
+
+# Generated files
+gen/
+dist/build.gen.js
+**/*.map
