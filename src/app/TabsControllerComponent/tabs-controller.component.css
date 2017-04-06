@@ -1,0 +1,15 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+:host /deep/ .mat-tab-body-wrapper,
+.full-height{
+  flex: 1;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+}

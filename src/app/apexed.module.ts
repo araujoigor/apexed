@@ -11,6 +11,7 @@ import { ApexedComponent } from "./apexed.component";
 import { ConsoleAreaComponent } from "./ConsoleAreaComponent/console-area.component";
 import { EditorAreaComponent } from "./EditorAreaComponent/editor-area.component";
 import { TabComponent } from "./TabComponent/tab.component";
+import { TabsControllerComponent } from "./TabsControllerComponent/tabs-controller.component";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TabComponent } from "./TabComponent/tab.component";
     ApexedComponent,
     TabComponent,
     EditorAreaComponent,
-    ConsoleAreaComponent
+    ConsoleAreaComponent,
+    TabsControllerComponent
   ],
   imports: [
     BrowserModule,
