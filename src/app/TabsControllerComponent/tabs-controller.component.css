@@ -1,15 +1,16 @@
-:host{
+:host,
+:host /deep/ .mat-tab-body-content,
+.flex-container{
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-:host /deep/ .mat-tab-body-wrapper,
-.full-height{
+:host /deep/ .mat-tab-body-wrapper{
   flex: 1;
 }
 
-.flex-container{
+:host /deep/ .mat-tab-body{
   display: flex;
   flex-direction: column;
 }

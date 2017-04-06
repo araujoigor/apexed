@@ -1,9 +1,12 @@
 :host{
-    height: 100%;
-    width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.half-height{
-  height: 50%;
+.tab-area{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }

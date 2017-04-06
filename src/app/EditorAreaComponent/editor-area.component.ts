@@ -12,7 +12,7 @@ export class EditorAreaComponent implements AfterViewInit{
 
   ngAfterViewInit(){
     var editor = ace.edit(this.editor.nativeElement);
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme("ace/theme/eclipse");
     editor.getSession().setMode("ace/mode/sql");
   }
 }
