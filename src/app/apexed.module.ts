@@ -15,22 +15,22 @@ import { TabsControllerComponent } from "./TabsControllerComponent/tabs-controll
 
 
 @NgModule({
-  declarations: [
-    ApexedComponent,
-    TabComponent,
-    EditorAreaComponent,
-    ConsoleAreaComponent,
-    TabsControllerComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    FormsModule,
-    HttpModule,
-    MaterialModule,
-    BrowserAnimationsModule
-  ],
-  providers: [],
-  bootstrap: [ApexedComponent]
+    declarations: [
+        ApexedComponent,
+        TabComponent,
+        EditorAreaComponent,
+        ConsoleAreaComponent,
+        TabsControllerComponent
+    ],
+    imports: [
+        BrowserModule,
+        CommonModule,
+        FormsModule,
+        HttpModule,
+        MaterialModule,
+        BrowserAnimationsModule
+    ],
+    providers: [],
+    bootstrap: [ApexedComponent]
 })
 export class ApexedModule { }

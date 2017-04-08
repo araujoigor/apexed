@@ -1,55 +1,55 @@
 {
-  "name": "apexed",
-  "version": "0.0.1",
-  "description": "Graphical User Interface for RealTime Apex and SOQL execution",
-  "main": "src/index.js",
-  "scripts": {
-    "build": "node_modules/.bin/ngc && node_modules/.bin/rollup -c rollup-config.js",
-    "clean": "rm -rf gen/ dist/build.gen.js ",
-    "dev": "npm run build && electron dist/index.js --dev",
-    "start": "electron dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/araujoigor/apexed.git"
-  },
-  "keywords": [
-    "SOQL",
-    "Apex",
-    "Salesforce",
-    "electron"
-  ],
-  "author": "Igor Araujo",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/araujoigor/apexed/issues"
-  },
-  "homepage": "https://github.com/araujoigor/apexed#readme",
-  "devDependencies": {
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/platform-server": "^4.0.0",
-    "electron": "^1.6.2",
-    "rollup": "^0.41.6",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-uglify": "^1.0.1",
-    "typescript": "~2.2.0"
-  },
-  "dependencies": {
-    "@angular/animations": "^4.0.0",
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
-    "@angular/http": "^4.0.0",
-    "@angular/material": "git+https://github.com/angular/material2-builds.git",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
-    "@angular/router": "^4.0.0",
-    "ace-builds": "^1.2.6",
-    "core-js": "^2.4.1",
-    "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4"
-  }
+    "name": "apexed",
+    "version": "0.0.1",
+    "description": "Graphical User Interface for RealTime Apex and SOQL execution",
+    "main": "src/index.js",
+    "scripts": {
+        "build": "node_modules/.bin/ngc && node_modules/.bin/rollup -c rollup-config.js",
+        "clean": "rm -rf gen/ dist/build.gen.js ",
+        "dev": "npm run build && electron dist/index.js --dev",
+        "start": "electron dist/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/araujoigor/apexed.git"
+    },
+    "keywords": [
+        "SOQL",
+        "Apex",
+        "Salesforce",
+        "electron"
+    ],
+    "author": "Igor Araujo",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/araujoigor/apexed/issues"
+    },
+    "homepage": "https://github.com/araujoigor/apexed#readme",
+    "devDependencies": {
+        "@angular/compiler-cli": "^4.0.0",
+        "@angular/platform-server": "^4.0.0",
+        "electron": "^1.6.2",
+        "rollup": "^0.41.6",
+        "rollup-plugin-commonjs": "^8.0.2",
+        "rollup-plugin-node-resolve": "^2.0.0",
+        "rollup-plugin-uglify": "^1.0.1",
+        "typescript": "~2.2.0"
+    },
+    "dependencies": {
+        "@angular/animations": "^4.0.0",
+        "@angular/common": "^4.0.0",
+        "@angular/compiler": "^4.0.0",
+        "@angular/core": "^4.0.0",
+        "@angular/forms": "^4.0.0",
+        "@angular/http": "^4.0.0",
+        "@angular/material": "git+https://github.com/angular/material2-builds.git",
+        "@angular/platform-browser": "^4.0.0",
+        "@angular/platform-browser-dynamic": "^4.0.0",
+        "@angular/router": "^4.0.0",
+        "ace-builds": "^1.2.6",
+        "core-js": "^2.4.1",
+        "rxjs": "^5.1.0",
+        "zone.js": "^0.8.4"
+    }
 }

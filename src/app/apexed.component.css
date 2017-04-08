@@ -1,50 +1,49 @@
 
 .container{
-  width: 100%;
-  height: 100%;
-  background-color: #1e1e1e;
-  color: white;
-  -webkit-user-select: none;
+    width: 100%;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: white;
+    -webkit-user-select: none;
 }
 
 .container .watermark{
-  color: #ccc;
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: calc(50% + 55px);
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
+    color: #ccc;
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: calc(50% + 55px);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
 
-  font-size: 13px;
-  display: table-row;
-  opacity: .8;
-  cursor: default;
+    font-size: 13px;
+    display: table-row;
+    opacity: .8;
+    cursor: default;
 }
 
 .container .watermark .watermark-box{
-  display: inline-table;
-  border-collapse: separate;
-  border-spacing: 13px 17px;
+    display: inline-table;
+    border-collapse: separate;
+    border-spacing: 13px 17px;
 
-  white-space: nowrap;
+    white-space: nowrap;
 
-  line-height: 1.4em;
+    line-height: 1.4em;
 }
 
-.container .watermark .watermark-box dl
-{
-  display: table-row;
+.container .watermark .watermark-box dl{
+    display: table-row;
 }
 
 .container .watermark .watermark-box dl dt{
-  text-align: right;
-  display: table-cell;
+    text-align: right;
+    display: table-cell;
 }
 
 .container .watermark .watermark-box dl dd
 {
-  text-align: left;
-  display: table-cell;
+    text-align: left;
+    display: table-cell;
 }

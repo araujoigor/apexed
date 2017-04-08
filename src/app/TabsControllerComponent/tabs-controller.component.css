@@ -1,16 +1,16 @@
 :host,
 :host /deep/ .mat-tab-body-content,
 .flex-container{
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 :host /deep/ .mat-tab-body-wrapper{
-  flex: 1;
+    flex: 1;
 }
 
 :host /deep/ .mat-tab-body{
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
