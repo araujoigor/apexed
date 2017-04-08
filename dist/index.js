@@ -6,6 +6,8 @@ const menuTemplate                          = require("./menu");
 let mainWindow      = null;
 
 function createWindow(){
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+
     mainWindow = new BrowserWindow({ width: 800, height: 600});
 
     mainWindow.loadURL(url.format({
@@ -39,5 +41,3 @@ app.on("activate", function(){
         createWindow();
     }
 });
-
-Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));

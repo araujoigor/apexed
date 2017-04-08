@@ -1,3 +1,5 @@
+const { app } = require("electron");
+
 const template = [
     {
         label   : "File",
@@ -59,11 +61,11 @@ if (process.platform === "darwin") {
     template.unshift({
         label   : app.getName(),
         submenu : [
-            { role: "about"                 },
-            { type: "separator"             },
-            { role: "Preferences"           },
-            { type: "separator"             },
-            { role: "quit"                  }
+            { role  : "about"                 },
+            { type  : "separator"             },
+            { label : "Preferences"           },
+            { type  : "separator"             },
+            { role  : "quit"                  }
         ]
     });
 } else {
