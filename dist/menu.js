@@ -1,5 +1,9 @@
 const { app } = require("electron");
 
+function onMenuClicked(menuItem, window, event){
+    window.webContents.send("menu-click", menuItem.label.toLowerCase().replace(" ", "-"));
+}
+
 const template = [
     {
         label   : "File",
@@ -72,5 +76,13 @@ if (process.platform === "darwin") {
     template[1].submenu.push({ type : "separator"    });
     template[1].submenu.push({ label: "Preferences"  });
 }
+
+template.forEach( (menu) => {
+    menu.submenu.forEach( (submenu) => {
+        if(submenu.type !== "separator"){
+            submenu.click = onMenuClicked;
+        }
+    });
+});
 
 module.exports = template;
