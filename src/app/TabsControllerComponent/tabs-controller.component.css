@@ -8,9 +8,19 @@
 
 :host /deep/ .mat-tab-body-wrapper{
     flex: 1;
+    background-color: #fbfbfb;
 }
 
 :host /deep/ .mat-tab-body{
     display: flex;
     flex-direction: column;
+}
+
+.close-icon{
+    float: right;
+    margin-top: 17px;
+    font-size: 14px;
+    width: 6px;
+    height: 0;
+    color: #555;
 }

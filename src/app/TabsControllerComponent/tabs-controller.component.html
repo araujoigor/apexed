@@ -1,5 +1,8 @@
 <md-tab-group class="flex-container">
     <md-tab *ngFor="let tab of tabs" label="tab">
+        <ng-template md-tab-label>
+            {{tab}} <md-icon class="close-icon" (click)="closeTab(tab)">close</md-icon>
+        </ng-template>
         <tab></tab>
     </md-tab>
 </md-tab-group>
