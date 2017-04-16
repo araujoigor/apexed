@@ -6,12 +6,6 @@ import { TabComponent } from "./TabComponent/tab.component";
     templateUrl: "./apexed.component.html",
     styleUrls: ["./apexed.component.css"]
 })
-export class ApexedComponent implements OnInit{
+export class ApexedComponent{
     title = "app works!";
-
-    tabs : string[] = [];
-
-    ngOnInit(){
-        this.tabs.push("oi");
-    }
 }
