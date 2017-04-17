@@ -1,11 +1,18 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { TabComponent } from "./TabComponent/tab.component";
+import { IpcRendererService } from "../services/ipcrenderer.service";
 
 @Component({
-    selector: "apexed",
-    templateUrl: "./apexed.component.html",
-    styleUrls: ["./apexed.component.css"]
+    selector    : "apexed",
+    templateUrl : "./apexed.component.html",
+    styleUrls   : [ "./apexed.component.css" ],
+    providers   : [ IpcRendererService ]
 })
 export class ApexedComponent{
-    title = "app works!";
+
+    constructor(private ipcRendererService : IpcRendererService){
+        this.ipcRendererService.registerMessageObserver("preferences", () => {
+            this.ipcRendererService.sendMessage("settings-modal", "open");
+        });
+    }
 }

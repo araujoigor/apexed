@@ -35,7 +35,7 @@
                 /* Support for Safari and Chrome. */
                 text-rendering: optimizeLegibility;
             }
-            apexed {
+            settings-app {
                 display: flex;
                 flex-direction: column;
                 height: 100%;
@@ -51,21 +51,11 @@
         <script src="../node_modules/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
-        <script>var currentApp = "Apexed";</script>
+        <script>var currentApp = "Settings";</script>
     </head>
     <body>
-
-        <!--<div id="editor">
-            SELECT Id FROM Orders WHERE Id = 'testID'
-        </div>-->
-
-        <apexed>Loading...</apexed>
+        <settings-app>Loading...</settings-app>
     </body>
 
-    <script>
-        /*var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/sql");*/
-    </script>
     <script src="./build.gen.js"></script>
 </html>

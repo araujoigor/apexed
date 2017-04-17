@@ -7,20 +7,12 @@ import { HttpModule } from "@angular/http";
 
 import { MaterialModule } from "@angular/material";
 
-import { ApexedComponent } from "./apexed.component";
-import { ConsoleAreaComponent } from "./ConsoleAreaComponent/console-area.component";
-import { EditorAreaComponent } from "./EditorAreaComponent/editor-area.component";
-import { TabComponent } from "./TabComponent/tab.component";
-import { TabsControllerComponent } from "./TabsControllerComponent/tabs-controller.component";
+import { SettingsAppComponent } from "./settings-app.component";
 
 
 @NgModule({
     declarations: [
-        ApexedComponent,
-        TabComponent,
-        EditorAreaComponent,
-        ConsoleAreaComponent,
-        TabsControllerComponent
+        SettingsAppComponent
     ],
     imports: [
         BrowserModule,
@@ -31,6 +23,6 @@ import { TabsControllerComponent } from "./TabsControllerComponent/tabs-controll
         BrowserAnimationsModule
     ],
     providers: [],
-    bootstrap: [ ApexedComponent ]
+    bootstrap: [ SettingsAppComponent ]
 })
-export class ApexedModule { }
+export class SettingsModule { }

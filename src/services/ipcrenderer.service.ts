@@ -35,5 +35,9 @@ export class IpcRendererService{
         }
     }
 
+    public sendMessage(channel : string, content : string){
+        ipcRenderer.send(channel, content);
+    }
+
 }
 

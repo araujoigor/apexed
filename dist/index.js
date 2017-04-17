@@ -1,9 +1,10 @@
-const { app, BrowserWindow, dialog, Menu }  = require("electron");
-const path                                  = require("path");
-const url                                   = require("url");
-const menuTemplate                          = require("./menu");
+const { app, BrowserWindow, dialog, Menu, ipcMain } = require("electron");
+const path                                          = require("path");
+const url                                           = require("url");
+const menuTemplate                                  = require("./menu");
 
 let mainWindow      = null;
+let settingsWindow  = null;
 
 function createWindow(){
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
@@ -39,5 +40,30 @@ app.on("ready", createWindow);
 app.on("activate", function(){
     if(!mainWindow){
         createWindow();
+    }
+});
+
+ipcMain.on("settings-modal", (event, payload) => {
+    if (payload === "open" && settingsWindow === null){
+        settingsWindow = new BrowserWindow({parent: mainWindow, modal: true, show: false});
+        settingsWindow.loadURL(url.format({
+            pathname: path.join(__dirname, "settings.html"),
+            protocol: "file:",
+            slashes : true
+        }));
+        
+        settingsWindow.once('ready-to-show', () => {
+            if(process.argv[2] === "--dev"){
+                settingsWindow.webContents.openDevTools();
+            }
+            settingsWindow.show();
+        });
+        settingsWindow.once('closed', () => {
+            settingsWindow = null;
+        })
+    }
+
+    if(payload === "close" && settingsWindow !== null){
+        settingsWindow.close();
     }
 });

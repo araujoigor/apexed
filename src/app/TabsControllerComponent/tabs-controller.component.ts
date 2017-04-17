@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IpcRendererService } from "../ipcrenderer.service";
+import { IpcRendererService } from "../../services/ipcrenderer.service";
 
 @Component({
     selector    : "tabs-controller",
