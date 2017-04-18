@@ -10,9 +10,15 @@ export class EditorAreaComponent implements AfterViewInit{
 
     @ViewChild("editor") editor: ElementRef;
 
+    private aceEditor;
+
     ngAfterViewInit(){
-        var editor = ace.edit(this.editor.nativeElement);
-        editor.setTheme("ace/theme/eclipse");
-        editor.getSession().setMode("ace/mode/sql");
+        this.aceEditor = ace.edit(this.editor.nativeElement);
+        this.aceEditor.setTheme("ace/theme/eclipse");
+        this.aceEditor.getSession().setMode("ace/mode/sql");
+    }
+
+    public getEditorContent() {
+        return this.aceEditor.getValue();
     }
 }

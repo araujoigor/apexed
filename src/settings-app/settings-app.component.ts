@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MdInputDirective } from "@angular/material";
 import { MdSnackBar } from '@angular/material';
 import { CredentialsService } from "../services/credentials.service";
@@ -10,7 +10,7 @@ import { IpcRendererService } from "../services/ipcrenderer.service";
     styleUrls   : [ "./settings-app.component.css" ],
     providers   : [ CredentialsService, IpcRendererService ]
 })
-export class SettingsAppComponent implements AfterViewInit {
+export class SettingsAppComponent {
     username: string;
     password: string;
 
@@ -18,9 +18,7 @@ export class SettingsAppComponent implements AfterViewInit {
         private credentialsService  : CredentialsService,
         private ipcRendererService  : IpcRendererService,
         private snackBar            : MdSnackBar
-    ){}
-
-    ngAfterViewInit(){
+    ){
         this.username = this.credentialsService.getUsername();
         this.password = this.credentialsService.getPassword();
     }
@@ -29,6 +27,8 @@ export class SettingsAppComponent implements AfterViewInit {
         this.credentialsService.setUsername(this.username);
         this.credentialsService.setPassword(this.password);
         this.snackBar.open("Settings saved succesfully", null, { duration: 2000 });
+
+        this.credentialsService.retrieveAccessData();
     }
 
     public close() {
