@@ -1,5 +1,14 @@
-<md-card style="display: flex; flex-direction: column; flex: 1; padding: 1px;">
+<md-card style="display: flex; flex-direction: column; flex: 1; padding: 1px; overflow: scroll;">
     <div #console id="console-area" style="flex: 1;">
         $ bash:
     </div>
+
+    <table *ngIf="keys">
+        <tr>
+            <th *ngFor="let key of keys">{{key}}</th>
+        </tr>
+        <tr *ngFor="let rowValues of dataArray">
+            <td *ngFor="let entry of rowValues">{{entry}}</td>
+        </tr>
+    </table>
 </md-card>

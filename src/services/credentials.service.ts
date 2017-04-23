@@ -7,11 +7,11 @@ import "rxjs/add/operator/catch";
 
 interface AccessDataModel{
     access_token: string;
-    id          : string
+    id          : string;
     instance_url: string;
-    issued_at   : string
+    issued_at   : string;
     signature   : string;
-    token_type  : string
+    token_type  : string;
 };
 
 @Injectable()

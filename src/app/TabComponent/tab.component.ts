@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { CredentialsService } from "../../services/credentials.service";
 import { EditorAreaComponent } from "../EditorAreaComponent/editor-area.component";
+import { ConsoleAreaComponent } from "../ConsoleAreaComponent/console-area.component";
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -21,6 +22,7 @@ const { querystring } = require("querystring");
 export class TabComponent{
 
     @ViewChild(EditorAreaComponent) editorArea : EditorAreaComponent;
+    @ViewChild(ConsoleAreaComponent) consoleArea : ConsoleAreaComponent;
 
     constructor(private http: Http, private credentialsService : CredentialsService){}
 
@@ -31,8 +33,17 @@ export class TabComponent{
 
         this.http.get(`${accessData.instance_url}/services/data/v20.0/query/?q=${encodeURIComponent(this.editorArea.getEditorContent().trim())}`, options)
             .map( (response: Response) => response.json())
-            .catch( error => Observable.throw(error.json().error || "Server Error"))
-            .subscribe(resp => console.log(resp), err => console.log(err));
+            .catch( error => Observable.throw(error))
+            .subscribe(this.handleQueryResult, this.handleQueryError);
+    }
+
+    public handleQueryResult = (resp) => {
+        console.log(resp);
+        this.consoleArea.data = resp.records;
+    }
+
+    public handleQueryError = (resp) => {
+        console.log(resp);
     }
 
 }

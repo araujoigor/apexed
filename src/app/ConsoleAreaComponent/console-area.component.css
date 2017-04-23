@@ -1,0 +1,43 @@
+
+table {
+    padding: 0 24px;
+    width: 100%;
+}
+
+th {
+    height: 56px;
+    line-height: 56px;
+    color: rgba(0,0,0,0.54);
+    font-size: 12px;
+}
+
+td {
+    height: 48px;
+    line-height: 48px;
+    font-size: 14px;
+    color: rgba(0,0,0,0.87);
+    border-top: 1px solid rgba(0,0,0,0.15);
+    white-space: pre;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+td, th {
+    padding: 0 12px 0 0 ;
+    text-align: left;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0,0,0,0.2);
+}
