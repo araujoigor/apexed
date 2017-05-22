@@ -26,9 +26,10 @@ export class SettingsAppComponent {
     public saveCredentials() {
         this.credentialsService.setUsername(this.username);
         this.credentialsService.setPassword(this.password);
-        this.snackBar.open("Settings saved succesfully", null, { duration: 2000 });
 
-        this.credentialsService.retrieveAccessData();
+        this.credentialsService.retrieveAccessData()
+            .subscribe( data => this.snackBar.open("Settings saved succesfully", null, { duration: 2000 }),
+                        error => this.snackBar.open("Erro while saving credentials: " + error, null, { duration: 2000 }) );
     }
 
     public close() {

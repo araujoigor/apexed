@@ -22,16 +22,19 @@ export class CredentialsService {
 
     constructor(private http : Http){}
 
-    public retrieveAccessData() {
+    public retrieveAccessData() : Observable<any> {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-        this.http.post("https://login.salesforce.com/services/oauth2/token",
+        let observable = this.http.post("https://login.salesforce.com/services/oauth2/token",
                        `grant_type=password&client_id=${this.clientId}&client_secret=${this.clientSecret}&username=${this.getUsername()}&password=${this.getPassword()}`,
                        { headers: headers })
             .map( (response : Response) => response.json())
-            .catch( error => Observable.throw(error.json().error || "Server Error"))
-            .subscribe( (data : AccessDataModel) => { console.log(data); this.setAccessData(data); }, error => console.log(error));
+            .catch( error => Observable.throw(error.json().error || "Server Error"));
+
+        observable.subscribe( (data : AccessDataModel) => { console.log(data); this.setAccessData(data); }, error => console.log(error));
+
+        return observable;
     }
 
     public getAccessData() : AccessDataModel{
