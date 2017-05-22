@@ -5,11 +5,12 @@ const menuTemplate                                  = require("./menu");
 
 let mainWindow      = null;
 let settingsWindow  = null;
+const isDev         = process.argv[2] === "--dev";
 
 function createWindow(){
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
-    mainWindow = new BrowserWindow({ width: 800, height: 600});
+    mainWindow = new BrowserWindow({ width: 800, height: 600, webPreferences: { devTools: isDev } });
 
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, "index.html"),
@@ -17,13 +18,19 @@ function createWindow(){
         slashes : true
     }));
 
-    if(process.argv[2] === "--dev"){
+    if(isDev){
         mainWindow.webContents.openDevTools();
     }
 
     mainWindow.on("closed", function(){
         mainWindow = null;
     });
+
+    if(!isDev){
+        mainWindow.webContents.on("devtools-opened", () => {
+            mainWindow.webContents.closeDevTools();
+        });
+    }
 }
 
 app.on("window-all-closed", function(){
@@ -45,22 +52,29 @@ app.on("activate", function(){
 
 ipcMain.on("settings-modal", (event, payload) => {
     if (payload === "open" && settingsWindow === null){
-        settingsWindow = new BrowserWindow({parent: mainWindow, modal: true, show: false});
+        settingsWindow = new BrowserWindow({ parent: mainWindow, modal: true, show: false, webPreferences: { devTools: isDev } });
         settingsWindow.loadURL(url.format({
             pathname: path.join(__dirname, "settings.html"),
             protocol: "file:",
             slashes : true
         }));
-        
+
         settingsWindow.once('ready-to-show', () => {
             if(process.argv[2] === "--dev"){
                 settingsWindow.webContents.openDevTools();
             }
             settingsWindow.show();
         });
+
         settingsWindow.once('closed', () => {
             settingsWindow = null;
-        })
+        });
+
+        if(!isDev){
+            settingsWindow.webContents.on("devtools-opened", () => {
+                settingsWindow.webContents.closeDevTools();
+            });
+        }
     }
 
     if(payload === "close" && settingsWindow !== null){
