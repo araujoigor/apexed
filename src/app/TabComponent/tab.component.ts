@@ -23,6 +23,7 @@ export class TabComponent{
 
     @ViewChild(EditorAreaComponent) editorArea : EditorAreaComponent;
     @ViewChild(ConsoleAreaComponent) consoleArea : ConsoleAreaComponent;
+    retryingError : boolean = false;
 
     constructor(private http: Http, private credentialsService : CredentialsService){}
 
@@ -42,8 +43,20 @@ export class TabComponent{
         this.consoleArea.data = resp.records;
     }
 
-    public handleQueryError = (resp) => {
-        console.log(resp);
+    public handleQueryError = (error) => {
+        try {
+            let cause = JSON.parse(error._body)[0].errorCode;
+            if(cause === "INVALID_SESSION_ID" && !this.retryingError){
+                this.retryingError = true;
+                this.credentialsService.retrieveAccessData()
+                    .subscribe( data => this.execute(), console.log );
+                return;
+            }
+        } catch (e) {
+            console.log(e);
+        }
+        console.log(error);
+        this.retryingError = false;
     }
 
 }
