@@ -1,5 +1,9 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 
+import "ace-builds/src/ace";
+import "ace-builds/src/mode-sql";
+import "ace-builds/src/theme-eclipse";
+
 declare var ace;
 
 @Component({

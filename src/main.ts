@@ -4,7 +4,6 @@
 
 import { enableProdMode } from "@angular/core";
 import { platformBrowser } from "@angular/platform-browser";
-//import { environment } from "./environments/environment";
 
 //May give an error before running the compilation
 import { ApexedModuleNgFactory } from "../gen/aot/src/app/apexed.module.ngfactory";

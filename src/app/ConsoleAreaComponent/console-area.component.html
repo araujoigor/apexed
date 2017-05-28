@@ -1,9 +1,5 @@
-<md-card style="display: flex; flex-direction: column; flex: 1; padding: 1px; overflow: scroll;">
-    <div #console id="console-area" style="flex: 1;">
-        $ bash:
-    </div>
-
-    <table *ngIf="keys">
+<md-card style="display: flex; flex-direction: column; flex: 1; padding: 1px; overflow: scroll;" *ngIf="keys">
+    <table>
         <tr>
             <th *ngFor="let key of keys">{{key}}</th>
         </tr>

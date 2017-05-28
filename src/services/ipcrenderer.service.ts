@@ -1,7 +1,7 @@
 import { Injectable }  from "@angular/core";
 
-//-- Require as commonjs
-const { ipcRenderer } =  require("electron");
+//-- Require as commonjs, since it is an electron dependency
+const { ipcRenderer } = require("electron");
 
 interface MessageObservers {
     [event: string]: (() => void)[];
@@ -37,6 +37,10 @@ export class IpcRendererService{
 
     public sendMessage(channel : string, content : string){
         ipcRenderer.send(channel, content);
+    }
+
+    public sendMessageSync(channel : string, content : string){
+        return ipcRenderer.sendSync(channel, content);
     }
 
 }

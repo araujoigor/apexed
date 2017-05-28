@@ -1,11 +1,11 @@
-import rollup      from "rollup"
-import nodeResolve from "rollup-plugin-node-resolve"
+import rollup      from "rollup";
+import nodeResolve from "rollup-plugin-node-resolve";
 import commonjs    from "rollup-plugin-commonjs";
-import uglify      from "rollup-plugin-uglify"
+import uglify      from "rollup-plugin-uglify";
 
 export default {
     entry: "./gen/bundle/src/main.js",
-    dest: "./dist/build.gen.js", // output a single application bundle
+    dest: "./app/build.gen.js", // output a single application bundle
     sourceMap: true,
     format: "iife",
     onwarn: function(warning) {
@@ -22,7 +22,7 @@ export default {
     plugins: [
         nodeResolve({jsnext: true, module: true}),
         commonjs({
-            include: "node_modules/rxjs/**",
+            include: ["node_modules/rxjs/**", "node_modules/ace-builds/**"]
         }),
         uglify()
     ]

@@ -11,8 +11,6 @@ import { ConsoleAreaComponent } from "../ConsoleAreaComponent/console-area.compo
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const { querystring } = require("querystring");
-
 @Component({
     selector    : "tab",
     templateUrl : "./tab.component.html",

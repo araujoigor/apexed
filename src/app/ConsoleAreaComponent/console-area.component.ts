@@ -1,7 +1,5 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
 
-declare var ace;
-
 @Component({
     selector    : "console-area",
     templateUrl : "./console-area.component.html",
@@ -38,8 +36,5 @@ export class ConsoleAreaComponent{
     }
 
     ngAfterViewInit(){
-        var consoleArea = ace.edit(this.consoleArea.nativeElement);
-        consoleArea.setTheme("ace/theme/chrome");
-        consoleArea.getSession().setMode("ace/mode/makefile");
     }
 }
