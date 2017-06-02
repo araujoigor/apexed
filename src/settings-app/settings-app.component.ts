@@ -19,17 +19,27 @@ export class SettingsAppComponent {
         private ipcRendererService  : IpcRendererService,
         private snackBar            : MdSnackBar
     ){
-        this.username = this.credentialsService.getUsername();
-        this.password = this.credentialsService.getPassword();
+        this.credentialsService.getCredentials()
+            .subscribe(
+                credentials => {
+                    this.username = credentials.username;
+                    this.password = credentials.password;
+                },
+                error => this.snackBar.open("Error while fetching keychain credentials", null, { duration: 2000 })
+            );
     }
 
     public saveCredentials() {
         this.credentialsService.setUsername(this.username);
         this.credentialsService.setPassword(this.password);
 
-        this.credentialsService.retrieveAccessData()
-            .subscribe( data => this.snackBar.open("Settings saved succesfully", null, { duration: 2000 }),
-                        error => this.snackBar.open("Erro while saving credentials: " + error, null, { duration: 2000 }) );
+        this.credentialsService.setCredentials({ username: this.username, password: this.password})
+            .subscribe(null, null, () => {
+                this.credentialsService.retrieveAccessData()
+                    .subscribe( data => this.snackBar.open("Settings saved succesfully", null, { duration: 2000 }),
+                                error => this.snackBar.open("Erro while saving credentials: " + error, null, { duration: 2000 }) );
+            }
+        );
     }
 
     public close() {

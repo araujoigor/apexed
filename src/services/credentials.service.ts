@@ -6,7 +6,9 @@ import { Observable } from 'rxjs/Rx';
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 
-interface AccessDataModel{
+const keytar = require("keytar");
+
+interface AccessDataModel {
     access_token: string;
     id          : string;
     instance_url: string;
@@ -14,6 +16,11 @@ interface AccessDataModel{
     signature   : string;
     token_type  : string;
 };
+
+interface Credentials {
+    username: string;
+    password: string;
+}
 
 @Injectable()
 export class CredentialsService {
@@ -27,11 +34,15 @@ export class CredentialsService {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-        let observable = this.http.post("https://login.salesforce.com/services/oauth2/token",
-                       `grant_type=password&client_id=${this.clientId}&client_secret=${this.clientSecret}&username=${this.getUsername()}&password=${this.getPassword()}`,
-                       { headers: headers })
-            .map( (response : Response) => response.json())
-            .catch( error => Observable.throw(error.json().error || "Server Error"));
+        let observable = this.getCredentials()
+            .flatMap(credentials => {
+                return this.http.post("https://login.salesforce.com/services/oauth2/token",
+                       `grant_type=password&client_id=${this.clientId}&client_secret=${this.clientSecret}&username=${credentials.username}&password=${credentials.password}`,
+                       { headers: headers }
+                    )
+                    .map( (response : Response) => response.json())
+                    .catch( error => Observable.throw(error.json().error || "Server Error"));
+            });
 
         observable.subscribe( (data : AccessDataModel) => { console.log(data); this.setAccessData(data); }, error => console.log(error));
 
@@ -54,8 +65,24 @@ export class CredentialsService {
         localStorage.setItem("username", newUsername);
     }
 
-    public getPassword() : string {
-        return localStorage.getItem("password");
+    public getCredentials() : Observable<Credentials> {
+        let username = this.getUsername();
+        return Observable.fromPromise(keytar.getPassword("apexed", username))
+            .map((password) => ({
+                username: username,
+                password: password
+            }));
+    }
+
+    public setCredentials(credentials : Credentials) : Observable<any> {
+        this.setUsername(credentials.username);
+        return Observable.fromPromise(
+            keytar.setPassword("apexed", credentials.username, credentials.password);
+    }
+
+    public getPassword() : Promise<String> {
+        //return localStorage.getItem("password");
+        return keytar.getPassword("apexed", this.getUsername());
     }
 
     public setPassword(newPassword : string) {
