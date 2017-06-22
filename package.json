@@ -6,8 +6,10 @@
   "scripts": {
     "build": "ngc && rollup -c rollup-config.js",
     "clean": "rm -rf gen/ app/build.gen.js ",
-    "dev": "npm run build && electron app/index.js --dev",
+    "start:dev": "electron app/index.js --dev",
     "start": "electron app/index.js",
+    "build:start": "npm run build && npm run start",
+    "build:start:dev": "npm run build && npm run start:dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
