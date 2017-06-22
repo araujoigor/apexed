@@ -77,7 +77,8 @@ export class CredentialsService {
     public setCredentials(credentials : Credentials) : Observable<any> {
         this.setUsername(credentials.username);
         return Observable.fromPromise(
-            keytar.setPassword("apexed", credentials.username, credentials.password);
+            keytar.setPassword("apexed", credentials.username, credentials.password)
+        );
     }
 
     public getPassword() : Promise<String> {
