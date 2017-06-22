@@ -16,3 +16,11 @@
     justify-content: flex-end;
     padding-right: 20px;
 }
+
+:host /deep/ .mat-toolbar-row{
+    height: 32px;
+}
+
+:host /deep/ .mat-toolbar{
+    min-height: 32px;
+}
