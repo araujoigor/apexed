@@ -10,7 +10,8 @@
     "start": "electron app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "postinstall": "electron-builder install-app-deps"
   },
   "build": {
     "appId": "br.com.igoraraujo91.apexed"
