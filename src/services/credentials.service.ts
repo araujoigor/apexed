@@ -68,7 +68,7 @@ export class CredentialsService {
     public getCredentials() : Observable<Credentials> {
         let username = this.getUsername();
         return Observable.fromPromise(keytar.getPassword("apexed", username))
-            .map((password) => ({
+            .map((password : string) => ({
                 username: username,
                 password: password
             }));
