@@ -25,7 +25,11 @@
     "Salesforce",
     "electron"
   ],
-  "author": "Igor Araujo",
+  "author": {
+    "name": "Igor Araujo",
+    "email": "igor.araujo91@gmail.com",
+    "url": "https://github.com/araujoigor"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/araujoigor/apexed/issues"
@@ -33,14 +37,13 @@
   "homepage": "https://github.com/araujoigor/apexed#readme",
   "devDependencies": {
     "@angular/compiler-cli": "^4.0.0",
-    "@angular/platform-server": "^4.0.0",
-    "electron": "^1.6.2",
-    "electron-builder": "^18.0.1",
-    "rollup": "^0.41.6",
+    "electron": "^1.7.3",
+    "electron-builder": "^19.7.1",
+    "rollup": "^0.43.0",
     "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-uglify": "^1.0.1",
-    "typescript": "~2.2.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "typescript": "~2.4.0"
   },
   "dependencies": {
     "@angular/animations": "^4.0.0",
