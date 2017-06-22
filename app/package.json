@@ -1,0 +1,24 @@
+{
+  "name": "apexed",
+  "version": "0.0.1",
+  "description": "Graphical User Interface for RealTime Apex and SOQL execution",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "SOQL",
+    "Apex",
+    "Salesforce",
+    "electron"
+  ],
+  "author": {
+    "name": "Igor Araujo",
+    "email": "igor.araujo91@gmail.com",
+    "url": "https://github.com/araujoigor"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "keytar": "^4.0.3"
+  }
+}
