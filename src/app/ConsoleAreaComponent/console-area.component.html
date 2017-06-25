@@ -1,10 +1,20 @@
-<md-card style="display: flex; flex-direction: column; flex: 1; padding: 1px; overflow: scroll;" *ngIf="keys">
-    <table>
-        <tr>
-            <th *ngFor="let key of keys">{{key}}</th>
-        </tr>
-        <tr *ngFor="let rowValues of dataArray">
-            <td *ngFor="let entry of rowValues">{{entry}}</td>
-        </tr>
-    </table>
+<md-card class="console-card" *ngIf="keys">
+    <div #scrollHeader class="header">
+        <table class="header">
+            <thead>
+                <tr>
+                    <th *ngFor="let key of keys">{{key}}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div #scrollBody class="body">
+        <table>
+            <tbody>
+                <tr *ngFor="let rowValues of dataArray">
+                    <td *ngFor="let entry of rowValues">{{entry}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </md-card>

@@ -1,13 +1,46 @@
+.console-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    padding: 0;
+}
 
-table {
-    padding: 0 24px;
+div.header {
+    flex: 1 1 68px;
+    max-height: 68px;
+    height: 68px;
+    overflow: hidden;
+    /* TODO: Change to fit selected theme */
+    background-color: #3f51b5;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    overflow: hidden;
+}
+
+div.header table {
+    table-layout: fixed;
+}
+
+div.body {
+    flex: 1 1;
+    overflow: auto;
+}
+
+tr {
     width: 100%;
+    display: block;
+    padding: 0 10px;
+}
+
+tr:nth-child(even) {
+    /* TODO: Change to fit selected theme */
+    background-color: #e8eaf6;
 }
 
 th {
     height: 56px;
     line-height: 56px;
-    color: rgba(0,0,0,0.54);
+    color: white;
     font-size: 12px;
 }
 
@@ -16,16 +49,18 @@ td {
     line-height: 48px;
     font-size: 14px;
     color: rgba(0,0,0,0.87);
-    border-top: 1px solid rgba(0,0,0,0.15);
     white-space: pre;
-    max-width: 300px;
+    max-width: 150px;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-left: 4px;
 }
 
 td, th {
     padding: 0 12px 0 0 ;
     text-align: left;
+    width: 150px;
+    min-width: 150px;
 }
 
 /* Scrollbar */
@@ -36,7 +71,8 @@ td, th {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.3);
+    /* TODO: Change to fit selected theme */
+    background-color: #1a237e;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.2);

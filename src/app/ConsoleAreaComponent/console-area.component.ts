@@ -6,8 +6,13 @@ import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular
     styleUrls   : [ "./console-area.component.css" ]
 })
 export class ConsoleAreaComponent{
-    @ViewChild("console")
-    private consoleArea : ElementRef;
+    @ViewChild("scrollBody")
+    private scrollBody : ElementRef;
+
+    @ViewChild("scrollHeader")
+    private scrollHeader: ElementRef;
+
+    private scrollListenerSet : boolean = false;
 
     private _keys       : string[];
     private dataArray   : any[];
@@ -35,6 +40,21 @@ export class ConsoleAreaComponent{
         return this.dataArray;
     }
 
-    ngAfterViewInit(){
+    childScrollListener = evt => {
+        this.scrollHeader.nativeElement.scrollLeft = evt.target.scrollLeft;
+    };
+
+    ngAfterViewChecked(){
+        if(this.scrollBody && !this.scrollListenerSet){
+            this.scrollBody.nativeElement.addEventListener("scroll", this.childScrollListener);
+            this.scrollListenerSet = true;
+        }
+    }
+
+    ngOnDestroy(){
+        if(this.scrollBody && this.scrollListenerSet){
+            this.scrollBody.nativeElement.removeEventListener("scroll", this.childScrollListener);
+            this.scrollListenerSet = false;
+        }
     }
 }
