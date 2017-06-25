@@ -11,6 +11,16 @@ import { ConsoleAreaComponent } from "../ConsoleAreaComponent/console-area.compo
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+interface LanguageMode {
+    name: string;
+    mode: string;
+}
+
+const langMap : LanguageMode[] = [
+    { name: "SOQL", mode: "sql" },
+    { name: "Apex", mode: "java" }
+];
+
 @Component({
     selector    : "tab",
     templateUrl : "./tab.component.html",
@@ -21,7 +31,10 @@ export class TabComponent{
 
     @ViewChild(EditorAreaComponent) editorArea : EditorAreaComponent;
     @ViewChild(ConsoleAreaComponent) consoleArea : ConsoleAreaComponent;
-    retryingError : boolean = false;
+
+    retryingError   : boolean           = false;
+    languages       : LanguageMode[]    = langMap;
+    tabLanguage     : string            = this.languages[0].mode;
 
     constructor(private http: Http, private credentialsService : CredentialsService){}
 

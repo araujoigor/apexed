@@ -1,11 +1,24 @@
-<editor-area class="tab-area">
+<editor-area class="tab-area" [mode]="tabLanguage">
 </editor-area>
 
 <div class="btn-submit">
-    <button md-raised-button (click)="execute()">Submit</button>
+    <button md-raised-button color="primary" (click)="execute()">Submit</button>
 </div>
 
 <console-area class="tab-area">
 </console-area>
 
-<md-toolbar></md-toolbar>
+<md-toolbar>
+    <md-grid-list cols="4" rowHeight="32px">
+        <md-grid-tile class="align-left" colspan="1" rowspan="1">Connected.</md-grid-tile>
+        <md-grid-tile colspan="1" rowspan="1"></md-grid-tile>
+        <md-grid-tile colspan="1" rowspan="1"></md-grid-tile>
+        <md-grid-tile class="align-right" colspan="1" rowspan="1">
+            <md-select [(ngModel)]="tabLanguage" name="tabLanguage">
+                <md-option *ngFor="let language of languages" [value]="language.mode">
+                    {{language.name}}
+                </md-option>
+            </md-select>
+        </md-grid-tile>
+    </md-grid-list>
+</md-toolbar>

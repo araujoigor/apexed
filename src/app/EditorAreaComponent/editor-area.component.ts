@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
 
 import "ace-builds/src/ace";
 import "ace-builds/src/mode-sql";
+import "ace-builds/src/mode-java";
 import "ace-builds/src/theme-eclipse";
 
 declare var ace;
@@ -14,7 +15,20 @@ export class EditorAreaComponent implements AfterViewInit{
 
     @ViewChild("editor") editor: ElementRef;
 
-    private aceEditor;
+    private aceEditor   : any;
+    private _mode       : string;
+
+    @Input("mode")
+    set mode(mode : string){
+        this._mode = mode;
+        if(this.aceEditor) {
+            this.aceEditor.getSession().setMode("ace/mode/" + mode);
+        }
+    }
+
+    get mode() : string {
+        return this._mode;
+    }
 
     ngAfterViewInit(){
         this.aceEditor = ace.edit(this.editor.nativeElement);

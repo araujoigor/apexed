@@ -23,4 +23,17 @@
 
 :host /deep/ .mat-toolbar{
     min-height: 32px;
+    font-size: 14px;
+}
+
+:host /deep/ .mat-grid-list{
+    width: 100%;
+}
+
+:host /deep/ .align-left.mat-grid-tile .mat-figure{
+    justify-content: flex-start;
+}
+
+:host /deep/ .align-right.mat-grid-tile .mat-figure{
+    justify-content: flex-end;
 }
