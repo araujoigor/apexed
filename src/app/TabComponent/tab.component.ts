@@ -35,10 +35,15 @@ export class TabComponent{
     retryingError   : boolean           = false;
     languages       : LanguageMode[]    = langMap;
     tabLanguage     : string            = this.languages[0].mode;
+    tabStatus       : string            = "";
+
+    queryTimestamp  : number            = 0;
 
     constructor(private http: Http, private credentialsService : CredentialsService){}
 
     public execute(){
+        this.queryTimestamp = Date.now();
+
         let accessData  = this.credentialsService.getAccessData();
         let headers     = new Headers({ "Authorization" : `${accessData.token_type} ${accessData.access_token}`});
         let options     = new RequestOptions({ headers: headers });
@@ -52,13 +57,18 @@ export class TabComponent{
     public handleQueryResult = (resp) => {
         console.log(resp);
         this.consoleArea.data = resp.records;
+
+        let queryElapsed = (Date.now() - this.queryTimestamp)/1000;
+        this.tabStatus = "Query executed in " + queryElapsed.toFixed(2) + " seconds";
     }
 
     public handleQueryError = (error) => {
+        let cause;
         try {
-            let cause = JSON.parse(error._body)[0].errorCode;
+            cause = JSON.parse(error._body)[0].errorCode;
             if(cause === "INVALID_SESSION_ID" && !this.retryingError){
                 this.retryingError = true;
+                this.tabStatus = "Invalid session ID. Re-authenticating";
                 this.credentialsService.retrieveAccessData()
                     .subscribe( data => this.execute(), console.log );
                 return;
@@ -67,6 +77,7 @@ export class TabComponent{
             console.log(e);
         }
         console.log(error);
+        this.tabStatus = "Error while executing query: " + cause || error;
         this.retryingError = false;
     }
 

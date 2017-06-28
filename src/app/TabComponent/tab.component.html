@@ -10,9 +10,7 @@
 
 <md-toolbar>
     <md-grid-list cols="4" rowHeight="32px">
-        <md-grid-tile class="align-left" colspan="1" rowspan="1">Connected.</md-grid-tile>
-        <md-grid-tile colspan="1" rowspan="1"></md-grid-tile>
-        <md-grid-tile colspan="1" rowspan="1"></md-grid-tile>
+        <md-grid-tile class="align-left" colspan="3" rowspan="1">{{tabStatus}}</md-grid-tile>
         <md-grid-tile class="align-right" colspan="1" rowspan="1">
             <md-select [(ngModel)]="tabLanguage" name="tabLanguage">
                 <md-option *ngFor="let language of languages" [value]="language.mode">
