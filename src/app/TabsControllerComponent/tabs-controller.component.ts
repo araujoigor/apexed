@@ -15,7 +15,7 @@ export class TabsControllerComponent{
     }
 
     private createNewTab = () => {
-        this.tabs.push("Tab " + (this.tabs.length + 1));
+        this.tabs.push("Tab #" + (this.tabs.length + 1));
     };
 
     public closeTab(tab: string){
