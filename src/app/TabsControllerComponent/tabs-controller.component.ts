@@ -8,14 +8,14 @@ import { IpcRendererService } from "../../services/ipcrenderer.service";
     providers   : [ IpcRendererService ]
 })
 export class TabsControllerComponent{
-    tabs : string[] = ["Teste"];
+    tabs : string[] = ["Tab #1"];
 
     constructor(ipcRendererService : IpcRendererService){
         ipcRendererService.registerMessageObserver("new-file", this.createNewTab);
     }
 
     private createNewTab = () => {
-        this.tabs.push("Tab " + this.tabs.length);
+        this.tabs.push("Tab " + (this.tabs.length + 1));
     };
 
     public closeTab(tab: string){
