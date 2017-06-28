@@ -1,5 +1,8 @@
-<md-card class="console-card" *ngIf="keys">
-    <div #scrollHeader class="header">
+<md-card class="console-card" *ngIf="(keys && keys.length) || loading">
+    <md-progress-spinner class="progress-circle" color="primary" mode="indeterminate" value="0" *ngIf="loading">
+    </md-progress-spinner>
+
+    <div #scrollHeader class="header" *ngIf="keys && keys.length">
         <table class="header">
             <thead>
                 <tr>
@@ -8,7 +11,7 @@
             </thead>
         </table>
     </div>
-    <div #scrollBody class="body">
+    <div #scrollBody class="body" *ngIf="keys && keys.length">
         <table>
             <tbody>
                 <tr *ngFor="let rowValues of dataArray">

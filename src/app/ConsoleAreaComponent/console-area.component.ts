@@ -16,15 +16,22 @@ export class ConsoleAreaComponent{
 
     private _keys       : string[];
     private dataArray   : any[];
+    private _loading    : boolean;
 
-    get keys(){
-        return this._keys;
+    get loading() { return this._loading; }
+
+    @Input()
+    set loading(isLoading : boolean) {
+        this._loading = isLoading;
     }
+
+    get keys(){ return this._keys; }
 
     @Input()
     set data(data : any[] | string){
-        this._keys       = null;
+        this._keys      = null;
         this.dataArray  = [];
+        this._loading   = false;
         if(typeof data === "object"){
             delete (data[0] || {}).attributes;
             this._keys = Object.keys(data[0] || {});

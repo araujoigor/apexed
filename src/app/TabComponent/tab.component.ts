@@ -42,11 +42,14 @@ export class TabComponent{
     constructor(private http: Http, private credentialsService : CredentialsService){}
 
     public execute(){
-        this.queryTimestamp = Date.now();
+        this.queryTimestamp     = Date.now();
+        this.consoleArea.data   = [];
 
         let accessData  = this.credentialsService.getAccessData();
         let headers     = new Headers({ "Authorization" : `${accessData.token_type} ${accessData.access_token}`});
         let options     = new RequestOptions({ headers: headers });
+
+        this.consoleArea.loading = true;
 
         this.http.get(`${accessData.instance_url}/services/data/v20.0/query/?q=${encodeURIComponent(this.editorArea.getEditorContent().trim())}`, options)
             .map( (response: Response) => response.json())
