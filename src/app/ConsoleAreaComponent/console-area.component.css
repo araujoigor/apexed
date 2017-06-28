@@ -7,9 +7,9 @@
 }
 
 div.header {
-    flex: 1 1 68px;
-    max-height: 68px;
-    height: 68px;
+    flex: 1 1 52px;
+    max-height: 52px;
+    height: 52px;
     overflow: hidden;
     /* TODO: Change to fit selected theme */
     background-color: #3f51b5;
@@ -38,9 +38,9 @@ tr:nth-child(even) {
 }
 
 th {
-    height: 56px;
-    line-height: 56px;
-    color: white;
+    height: 44px;
+    line-height: 44px;
+    color: rgba(255,255,255,0.87);
     font-size: 12px;
 }
 
