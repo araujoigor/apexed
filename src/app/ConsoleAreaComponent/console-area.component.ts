@@ -1,5 +1,34 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
 
+function flatten(obj, options){
+    options             = options                   || {};
+    var separator       = options.separator         || ".";
+    var arraysAsObjects = options.arraysAsObjects   || false;
+    obj                 = obj                       || {};
+    var newObj          = {};
+
+    //-- Arrays and strings depends on the arraysAsObjects arguemnt
+    //-- Any types different from Object, Array and String early return
+    //-- Single character strings early return always
+    if((!arraysAsObjects && [Array, String].indexOf(obj.constructor) !== -1) ||
+        [Object, Array, String].indexOf(obj.constructor) === -1 ||
+        (obj.constructor === String && obj.length === 1)){
+        return obj;
+    }
+
+    for (var key in obj) {
+        var value = flatten(obj[key], { separator: separator, arraysAsObjects: arraysAsObjects }) || {};
+        if((value || {}).constructor === Object){
+            for(var childkey in value){
+                newObj[key+separator+childkey] = value[childkey];
+            }
+            continue;
+        }
+        newObj[key] = value;
+    }
+    return newObj;
+}
+
 @Component({
     selector    : "console-area",
     templateUrl : "./console-area.component.html",
