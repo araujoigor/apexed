@@ -82,6 +82,7 @@ export class TabComponent{
         console.log(error);
         this.tabStatus = "Error while executing query: " + cause || error;
         this.retryingError = false;
+        this.consoleArea.loading = false;
     }
 
 }

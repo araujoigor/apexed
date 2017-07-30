@@ -1,26 +1,27 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
 
 function flatten(obj, options){
-    options             = options                   || {};
-    var separator       = options.separator         || ".";
-    var arraysAsObjects = options.arraysAsObjects   || false;
-    obj                 = obj                       || {};
-    var newObj          = {};
+    var newObj              = {};
+    obj                     = obj                       || {};
+    options                 = options                   || {};
+    options.separator       = options.separator         || ".";
+    options.arraysAsObjects = options.arraysAsObjects   || false;
 
     //-- Arrays and strings depends on the arraysAsObjects arguemnt
     //-- Any types different from Object, Array and String early return
     //-- Single character strings early return always
-    if((!arraysAsObjects && [Array, String].indexOf(obj.constructor) !== -1) ||
+    if((!options.arraysAsObjects && [Array, String].indexOf(obj.constructor) !== -1) ||
         [Object, Array, String].indexOf(obj.constructor) === -1 ||
         (obj.constructor === String && obj.length === 1)){
         return obj;
     }
 
     for (var key in obj) {
-        var value = flatten(obj[key], { separator: separator, arraysAsObjects: arraysAsObjects }) || {};
+        if(([].concat.apply([], [options.filterOut]) || []).indexOf(key) !== -1) { continue };
+        var value = flatten(obj[key], options) || {};
         if((value || {}).constructor === Object){
             for(var childkey in value){
-                newObj[key+separator+childkey] = value[childkey];
+                newObj[key+options.separator+childkey] = value[childkey];
             }
             continue;
         }
@@ -62,11 +63,10 @@ export class ConsoleAreaComponent{
         this.dataArray  = [];
         this._loading   = false;
         if(typeof data === "object"){
-            delete (data[0] || {}).attributes;
+            data = data.map(entry => flatten(entry, { filterOut: "attributes" }));
             this._keys = Object.keys(data[0] || {});
 
             for (let i = 0; i < data.length; i++){
-                delete data[i].attributes;
                 this.dataArray.push(Object.values(data[i]));
             }
         }
