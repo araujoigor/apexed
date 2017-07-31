@@ -1,23 +1,27 @@
 <md-card class="console-card" *ngIf="(keys && keys.length) || loading">
-    <md-progress-spinner class="progress-circle" color="primary" mode="indeterminate" value="0" *ngIf="loading">
-    </md-progress-spinner>
+    <ng-template #loading>
+        <md-progress-spinner class="progress-circle" color="primary" mode="indeterminate" value="0">
+        </md-progress-spinner>
+    </ng-template>
 
-    <div #scrollHeader class="header" *ngIf="keys && keys.length">
-        <table class="header">
-            <thead>
-                <tr>
-                    <th *ngFor="let key of keys">{{key}}</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div #scrollBody class="body" *ngIf="keys && keys.length">
-        <table>
-            <tbody>
-                <tr *ngFor="let rowValues of dataArray">
-                    <td *ngFor="let entry of rowValues">{{entry}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="table-wrapper" *ngIf="keys && keys.length; else loading">
+        <div #scrollHeader class="header" >
+            <table class="header">
+                <thead>
+                    <tr>
+                        <th *ngFor="let key of keys">{{key}}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div #scrollBody class="body">
+            <table>
+                <tbody>
+                    <tr *ngFor="let rowValues of dataArray">
+                        <td *ngFor="let entry of rowValues">{{entry}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </md-card>
