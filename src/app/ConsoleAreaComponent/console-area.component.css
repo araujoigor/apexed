@@ -47,14 +47,20 @@ th {
 
 td {
     height: 48px;
-    line-height: 48px;
-    font-size: 14px;
+    line-height: 0;
     color: rgba(0,0,0,0.87);
-    white-space: pre;
     max-width: 150px;
+    margin-left: 4px;
+}
+
+span.table-data-span {
+    line-height: 15px;
+    font-size: 14px;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin-left: 4px;
+    max-width: 150px;
+    white-space: pre;
+    display: block;
 }
 
 td, th {

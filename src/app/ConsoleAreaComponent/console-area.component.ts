@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular
 
 function flatten(obj, options){
     var newObj              = {};
-    obj                     = obj                       || {};
+    obj                     = obj;
     options                 = options                   || {};
     options.separator       = options.separator         || ".";
     options.arraysAsObjects = options.arraysAsObjects   || false;
@@ -10,7 +10,8 @@ function flatten(obj, options){
     //-- Arrays and strings depends on the arraysAsObjects arguemnt
     //-- Any types different from Object, Array and String early return
     //-- Single character strings early return always
-    if((!options.arraysAsObjects && [Array, String].indexOf(obj.constructor) !== -1) ||
+    if( [null, undefined, false].indexOf(obj) !== -1 ||
+        (!options.arraysAsObjects && [Array, String].indexOf(obj.constructor) !== -1) ||
         [Object, Array, String].indexOf(obj.constructor) === -1 ||
         (obj.constructor === String && obj.length === 1)){
         return obj;
@@ -18,8 +19,8 @@ function flatten(obj, options){
 
     for (var key in obj) {
         if(([].concat.apply([], [options.filterOut]) || []).indexOf(key) !== -1) { continue };
-        var value = flatten(obj[key], options) || {};
-        if((value || {}).constructor === Object){
+        var value = flatten(obj[key], options);
+        if([null, undefined, false].indexOf(value) === -1 && value.constructor === Object){
             for(var childkey in value){
                 newObj[key+options.separator+childkey] = value[childkey];
             }
@@ -36,11 +37,29 @@ function flatten(obj, options){
     styleUrls   : [ "./console-area.component.css" ]
 })
 export class ConsoleAreaComponent{
+    private _scrollBody : ElementRef;
+    private _scrollHeader: ElementRef;
+
     @ViewChild("scrollBody")
-    private scrollBody : ElementRef;
+    set scrollBody(scrollBody) {
+        if(this._scrollBody && this.scrollListenerSet){
+            this._scrollBody.nativeElement.removeEventListener("scroll", this.childScrollListener);
+            this.scrollListenerSet = false;
+        }
+
+        this._scrollBody = scrollBody;
+
+        if(this._scrollBody && !this.scrollListenerSet){
+            this._scrollBody.nativeElement.addEventListener("scroll", this.childScrollListener);
+            this.scrollListenerSet = true;
+        }
+    }
 
     @ViewChild("scrollHeader")
-    private scrollHeader: ElementRef;
+    set scrollHeader(scrollHeader) {
+        this._scrollHeader = scrollHeader;
+        console.log("set scrollheader");
+    }
 
     private scrollListenerSet : boolean = false;
 
@@ -77,20 +96,6 @@ export class ConsoleAreaComponent{
     }
 
     childScrollListener = evt => {
-        this.scrollHeader.nativeElement.scrollLeft = evt.target.scrollLeft;
+        this._scrollHeader.nativeElement.scrollLeft = evt.target.scrollLeft;
     };
-
-    ngAfterViewChecked(){
-        if(this.scrollBody && !this.scrollListenerSet){
-            this.scrollBody.nativeElement.addEventListener("scroll", this.childScrollListener);
-            this.scrollListenerSet = true;
-        }
-    }
-
-    ngOnDestroy(){
-        if(this.scrollBody && this.scrollListenerSet){
-            this.scrollBody.nativeElement.removeEventListener("scroll", this.childScrollListener);
-            this.scrollListenerSet = false;
-        }
-    }
 }
