@@ -9,6 +9,9 @@ import { MaterialModule } from "@angular/material";
 
 import { SettingsAppComponent } from "./settings-app.component";
 
+import { IpcRendererService } from "../services/ipcrenderer.service";
+import { CredentialsService } from "../services/credentials.service";
+
 
 @NgModule({
     declarations: [
@@ -22,7 +25,7 @@ import { SettingsAppComponent } from "./settings-app.component";
         MaterialModule,
         BrowserAnimationsModule
     ],
-    providers: [],
+    providers: [ IpcRendererService, CredentialsService ],
     bootstrap: [ SettingsAppComponent ]
 })
 export class SettingsModule { }

@@ -13,6 +13,10 @@ import { EditorAreaComponent } from "./EditorAreaComponent/editor-area.component
 import { TabComponent } from "./TabComponent/tab.component";
 import { TabsControllerComponent } from "./TabsControllerComponent/tabs-controller.component";
 
+import { IpcRendererService } from "../services/ipcrenderer.service";
+import { CredentialsService } from "../services/credentials.service";
+import { SalesforceService } from "../services/salesforce.service";
+
 
 @NgModule({
     declarations: [
@@ -30,7 +34,7 @@ import { TabsControllerComponent } from "./TabsControllerComponent/tabs-controll
         MaterialModule,
         BrowserAnimationsModule
     ],
-    providers: [],
+    providers: [ IpcRendererService, CredentialsService, SalesforceService ],
     bootstrap: [ ApexedComponent ]
 })
 export class ApexedModule { }

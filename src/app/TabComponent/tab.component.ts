@@ -23,8 +23,7 @@ const langMap : LanguageMode[] = [
 @Component({
     selector    : "tab",
     templateUrl : "./tab.component.html",
-    styleUrls   : ["./tab.component.css"],
-    providers   : [ SalesforceService ]
+    styleUrls   : ["./tab.component.css"]
 })
 export class TabComponent{
 

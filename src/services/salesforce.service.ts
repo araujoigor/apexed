@@ -32,6 +32,7 @@ export class SalesforceService {
                 this.retryingError = true;
                 return this.credentialsService.retrieveAccessData()
                     .map( data => this.executeQuery(query));
+                //TODO: Fix this. It do not work.
             }
         } catch (e) {}
         Observable.throw(error);

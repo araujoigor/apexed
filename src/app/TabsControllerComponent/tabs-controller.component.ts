@@ -4,8 +4,7 @@ import { IpcRendererService } from "../../services/ipcrenderer.service";
 @Component({
     selector    : "tabs-controller",
     templateUrl : "./tabs-controller.component.html",
-    styleUrls   : [ "./tabs-controller.component.css" ],
-    providers   : [ IpcRendererService ]
+    styleUrls   : [ "./tabs-controller.component.css" ]
 })
 export class TabsControllerComponent{
     tabs : string[] = ["Tab #1"];
