@@ -1,4 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
+import { DataSource } from "@angular/cdk";
+import { Observable } from "rxjs/Observable";
 
 function flatten(obj, options){
     var newObj              = {};
@@ -31,6 +33,16 @@ function flatten(obj, options){
     return newObj;
 }
 
+class SOQLDataSource extends DataSource<any> {
+    connect(collectionViewer) : Observable<any[]> {
+        return null;
+    }
+
+    disconnect(collectionViewer) {
+
+    }
+}
+
 @Component({
     selector    : "console-area",
     templateUrl : "./console-area.component.html",
@@ -58,7 +70,6 @@ export class ConsoleAreaComponent{
     @ViewChild("scrollHeader")
     set scrollHeader(scrollHeader) {
         this._scrollHeader = scrollHeader;
-        console.log("set scrollheader");
     }
 
     private scrollListenerSet : boolean = false;

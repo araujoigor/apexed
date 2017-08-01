@@ -1,9 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 
-import { Http, Response, RequestOptions, Headers } from "@angular/http";
 import { Observable } from 'rxjs/Rx';
 
-import { CredentialsService } from "../../services/credentials.service";
+import { SalesforceService } from "../../services/salesforce.service";
 import { EditorAreaComponent } from "../EditorAreaComponent/editor-area.component";
 import { ConsoleAreaComponent } from "../ConsoleAreaComponent/console-area.component";
 
@@ -25,35 +24,28 @@ const langMap : LanguageMode[] = [
     selector    : "tab",
     templateUrl : "./tab.component.html",
     styleUrls   : ["./tab.component.css"],
-    providers   : [ CredentialsService ]
+    providers   : [ SalesforceService ]
 })
 export class TabComponent{
 
     @ViewChild(EditorAreaComponent) editorArea : EditorAreaComponent;
     @ViewChild(ConsoleAreaComponent) consoleArea : ConsoleAreaComponent;
 
-    retryingError   : boolean           = false;
+
     languages       : LanguageMode[]    = langMap;
     tabLanguage     : string            = this.languages[0].mode;
     tabStatus       : string            = "";
 
     queryTimestamp  : number            = 0;
 
-    constructor(private http: Http, private credentialsService : CredentialsService){}
+    constructor(private salesforce : SalesforceService){}
 
     public execute(){
         this.queryTimestamp     = Date.now();
         this.consoleArea.data   = [];
-
-        let accessData  = this.credentialsService.getAccessData();
-        let headers     = new Headers({ "Authorization" : `${accessData.token_type} ${accessData.access_token}`});
-        let options     = new RequestOptions({ headers: headers });
-
         this.consoleArea.loading = true;
 
-        this.http.get(`${accessData.instance_url}/services/data/v20.0/query/?q=${encodeURIComponent(this.editorArea.getEditorContent().trim())}`, options)
-            .map( (response: Response) => response.json())
-            .catch( error => Observable.throw(error))
+        this.salesforce.executeQuery(this.editorArea.getEditorContent())
             .subscribe(this.handleQueryResult, this.handleQueryError);
     }
 
@@ -67,21 +59,9 @@ export class TabComponent{
 
     public handleQueryError = (error) => {
         let cause;
-        try {
-            cause = JSON.parse(error._body)[0].errorCode;
-            if(cause === "INVALID_SESSION_ID" && !this.retryingError){
-                this.retryingError = true;
-                this.tabStatus = "Invalid session ID. Re-authenticating";
-                this.credentialsService.retrieveAccessData()
-                    .subscribe( data => this.execute(), console.log );
-                return;
-            }
-        } catch (e) {
-            console.log(e);
-        }
+
         console.log(error);
-        this.tabStatus = "Error while executing query: " + cause || error;
-        this.retryingError = false;
+        this.tabStatus = "Error while executing query: " + (cause || error);
         this.consoleArea.loading = false;
     }
 
