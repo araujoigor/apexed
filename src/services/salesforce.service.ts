@@ -24,18 +24,18 @@ export class SalesforceService {
         return Observable.create();
     }
 
-    catchError(error, query) {
+    catchError(error, query) : Observable<any>{
         let cause;
         try {
             cause = JSON.parse(error._body)[0].errorCode;
             if(cause === "INVALID_SESSION_ID" && !this.retryingError){
                 this.retryingError = true;
                 return this.credentialsService.retrieveAccessData()
-                    .map( data => this.executeQuery(query));
+                    .flatMap( data => this.executeQuery(query));
                 //TODO: Fix this. It do not work.
             }
         } catch (e) {}
-        Observable.throw(error);
+        return Observable.throw(error);
     }
 
 }
