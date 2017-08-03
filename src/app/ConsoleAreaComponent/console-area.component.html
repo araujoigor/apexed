@@ -5,7 +5,7 @@
             <button md-menu-item (click)="copyToClipboard('csv')">CSV</button>
             <button md-menu-item (click)="copyToClipboard('json')">JSON</button>
         </md-menu>
-        <h5 class="table-title">Results</h5>
+        <h5 class="table-title">Results - <span style="color: #ff4081">{{dataArray.length}}</span> results</h5>
         <button class="menu-trigger" md-icon-button [mdMenuTriggerFor]="appMenu">
             <md-icon class="small-icon">content_copy</md-icon>
         </button>
@@ -30,7 +30,7 @@
                 <tbody>
                     <tr *ngFor="let rowValues of dataArray">
                         <td *ngFor="let entry of rowValues">
-                            <span class="table-data-span" *ngIf="entry; else nullUndefinedEntry">{{""+entry }}</span>
+                            <span class="table-data-span" *ngIf="entry; else nullUndefinedEntry">{{""+entry | objectUrl | safe }}</span>
                             <ng-template #nullUndefinedEntry><span class="table-data-span chip">{{""+entry}}</span></ng-template>
                         </td>
                     </tr>

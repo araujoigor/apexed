@@ -17,6 +17,8 @@ import { IpcRendererService } from "../services/ipcrenderer.service";
 import { CredentialsService } from "../services/credentials.service";
 import { SalesforceService } from "../services/salesforce.service";
 
+import { ObjectUrlPipe } from "../pipes/object-url.pipe";
+
 
 @NgModule({
     declarations: [
@@ -24,7 +26,8 @@ import { SalesforceService } from "../services/salesforce.service";
         TabComponent,
         EditorAreaComponent,
         ConsoleAreaComponent,
-        TabsControllerComponent
+        TabsControllerComponent,
+        ObjectUrlPipe
     ],
     imports: [
         BrowserModule,

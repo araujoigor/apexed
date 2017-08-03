@@ -31,6 +31,11 @@ div.header {
     overflow: hidden;
 }
 
+div.table-card-header, div.header {
+    background-color: #3f51b5;
+    color: rgba(255, 255, 255, 0.85);
+}
+
 div.header table {
     table-layout: fixed;
 }
@@ -59,7 +64,6 @@ tbody tr:hover {
 th {
     height: 48px;
     line-height: 48px;
-    color: rgba(0,0,0,0.87);
     font-size: 12px;
 }
 

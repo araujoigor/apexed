@@ -11,6 +11,11 @@
     padding: 20px;
 }
 
+editor-area.tab-area {
+    height: 120px;
+    flex: initial;
+}
+
 .btn-submit{
     display: flex;
     justify-content: flex-end;
