@@ -30,8 +30,8 @@
                 <tbody>
                     <tr *ngFor="let rowValues of dataArray">
                         <td *ngFor="let entry of rowValues">
-                            <span class="table-data-span" *ngIf="entry; else nullUndefinedEntry">{{""+entry}}</span>
-                            <ng-template #nullUndefinedEntry><span class="table-data-span">({{""+entry}})</span></ng-template>
+                            <span class="table-data-span" *ngIf="entry; else nullUndefinedEntry">{{""+entry }}</span>
+                            <ng-template #nullUndefinedEntry><span class="table-data-span chip">{{""+entry}}</span></ng-template>
                         </td>
                     </tr>
                 </tbody>

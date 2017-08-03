@@ -82,6 +82,15 @@ span.table-data-span {
     display: block;
 }
 
+span.table-data-span.chip {
+    display: inline-block;
+    text-align: center;
+    min-width: 62px;
+    padding: 8px 12px 8px 12px;
+    border-radius: 5px;
+    background-color: #dedede;
+}
+
 td, th {
     padding: 0 12px 0 0 ;
     text-align: left;
