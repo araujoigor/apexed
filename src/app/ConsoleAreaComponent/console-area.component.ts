@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
-import { DataSource } from "@angular/cdk";
 import { Observable } from "rxjs/Observable";
+import { MdSnackBar } from "@angular/material";
 
 function flatten(obj, options){
     var newObj              = {};
@@ -33,24 +33,23 @@ function flatten(obj, options){
     return newObj;
 }
 
-class SOQLDataSource extends DataSource<any> {
-    connect(collectionViewer) : Observable<any[]> {
-        return null;
-    }
-
-    disconnect(collectionViewer) {
-
-    }
-}
-
 @Component({
     selector    : "console-area",
     templateUrl : "./console-area.component.html",
     styleUrls   : [ "./console-area.component.css" ]
 })
 export class ConsoleAreaComponent{
-    private _scrollBody : ElementRef;
-    private _scrollHeader: ElementRef;
+    private _scrollBody         : ElementRef;
+    private _scrollHeader       : ElementRef;
+    private scrollListenerSet   : boolean = false;
+    private _keys               : string[];
+    private dataArray           : any[];
+    private _loading            : boolean;
+
+    constructor(private snackBar : MdSnackBar){}
+
+    @ViewChild("scrollHeader")
+    set scrollHeader(scrollHeader) { this._scrollHeader = scrollHeader; }
 
     @ViewChild("scrollBody")
     set scrollBody(scrollBody) {
@@ -67,23 +66,9 @@ export class ConsoleAreaComponent{
         }
     }
 
-    @ViewChild("scrollHeader")
-    set scrollHeader(scrollHeader) {
-        this._scrollHeader = scrollHeader;
-    }
-
-    private scrollListenerSet : boolean = false;
-
-    private _keys       : string[];
-    private dataArray   : any[];
-    private _loading    : boolean;
-
-    get loading() { return this._loading; }
-
     @Input()
-    set loading(isLoading : boolean) {
-        this._loading = isLoading;
-    }
+    set loading(isLoading : boolean) { this._loading = isLoading;}
+    get loading() { return this._loading; }
 
     get keys(){ return this._keys; }
 
@@ -102,11 +87,11 @@ export class ConsoleAreaComponent{
         }
     }
 
-    get data(){
-        return this.dataArray;
-    }
+    get data(){ return this.dataArray; }
 
-    childScrollListener = evt => {
-        this._scrollHeader.nativeElement.scrollLeft = evt.target.scrollLeft;
-    };
+    childScrollListener = evt => { this._scrollHeader.nativeElement.scrollLeft = evt.target.scrollLeft; };
+
+    copyToClipboard(type) {
+        this.snackBar.open(`Data contents copied to clipboard as ${type.toUpperCase()}`, "DISMISS", { duration: 2500 });
+    }
 }
