@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular
 import { Observable } from "rxjs/Observable";
 import { MdSnackBar } from "@angular/material";
 
+import { IpcRendererService } from "../../services/ipcrenderer.service";
+
 function flatten(obj, options){
     var newObj              = {};
     obj                     = obj;
@@ -43,10 +45,11 @@ export class ConsoleAreaComponent{
     private _scrollHeader       : ElementRef;
     private scrollListenerSet   : boolean = false;
     private _keys               : string[];
-    private dataArray           : any[];
+    private dataArray           : any[][];
+    private _rawData            : any;
     private _loading            : boolean;
 
-    constructor(private snackBar : MdSnackBar){}
+    constructor(private snackBar : MdSnackBar, private ipcRenderer : IpcRendererService){}
 
     @ViewChild("scrollHeader")
     set scrollHeader(scrollHeader) { this._scrollHeader = scrollHeader; }
@@ -71,12 +74,14 @@ export class ConsoleAreaComponent{
     get loading() { return this._loading; }
 
     get keys(){ return this._keys; }
+    get rawData() { return this._rawData; }
 
     @Input()
     set data(data : any[] | string){
         this._keys      = null;
         this.dataArray  = [];
         this._loading   = false;
+        this._rawData   = data;
         if(typeof data === "object"){
             data = data.map(entry => flatten(entry, { filterOut: "attributes" }));
             this._keys = Object.keys(data[0] || {});
@@ -87,11 +92,30 @@ export class ConsoleAreaComponent{
         }
     }
 
+    isNumber(data) { return typeof data === "number" }
+
     get data(){ return this.dataArray; }
 
     childScrollListener = evt => { this._scrollHeader.nativeElement.scrollLeft = evt.target.scrollLeft; };
 
+    getRawData(format : "json"|"csv") {
+        if(format === "json") {
+            return JSON.stringify(this.rawData, (key, value) => key === "attributes" ? undefined : value, 4);
+        }
+
+        if(format === "csv") {
+            return this._keys.join(",") + "\n" + this.dataArray.map(val => { return val.join(",") }).join("\n");
+        }
+
+        throw new Error("Invalid output format");
+    }
+
     copyToClipboard(type) {
+        try {
+            this.ipcRenderer.copyToClipboard(this.getRawData(type));
+        } catch(e) {
+            return this.snackBar.open(`:( Awwwn no! Data not copied. Please, try again.`, "DISMISS", { duration: 2500 });
+        }
         this.snackBar.open(`Data contents copied to clipboard as ${type.toUpperCase()}`, "DISMISS", { duration: 2500 });
     }
 }
