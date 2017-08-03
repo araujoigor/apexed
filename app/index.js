@@ -10,7 +10,7 @@ const isDev         = process.argv[2] === "--dev";
 function createWindow(){
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
-    mainWindow = new BrowserWindow({ width: 800, height: 600, webPreferences: { devTools: isDev } });
+    mainWindow = new BrowserWindow({ width: 800, height: 680, webPreferences: { devTools: isDev } });
 
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, "index.html"),
