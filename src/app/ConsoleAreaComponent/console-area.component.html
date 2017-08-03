@@ -1,7 +1,18 @@
-<md-card class="console-card" *ngIf="(keys && keys.length) || loading">
+<div class="console-card mat-elevation-z2" *ngIf="(keys && keys.length) || loading">
+
+    <div class="table-card-header">
+        <md-menu #appMenu="mdMenu">
+            <button md-menu-item (click)="copyToClipboard('csv')">CSV</button>
+            <button md-menu-item (click)="copyToClipboard('json')">JSON</button>
+        </md-menu>
+        <h5 class="table-title">Results</h5>
+        <button class="menu-trigger" md-icon-button [mdMenuTriggerFor]="appMenu">
+            <md-icon class="small-icon">content_copy</md-icon>
+        </button>
+    </div>
+
     <ng-template #loading>
-        <md-progress-spinner class="progress-circle" color="primary" mode="indeterminate" value="0">
-        </md-progress-spinner>
+        <md-progress-spinner class="progress-circle" color="primary" mode="indeterminate" value="0"></md-progress-spinner>
     </ng-template>
 
     <div class="table-wrapper" *ngIf="keys && keys.length; else loading">
@@ -27,4 +38,4 @@
             </table>
         </div>
     </div>
-</md-card>
+</div>

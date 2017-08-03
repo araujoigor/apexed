@@ -7,13 +7,26 @@
     position: relative;
 }
 
+.table-card-header .table-title {
+    float: left;
+    margin-left: 14px;
+    margin-bottom: 0px;
+    margin-top: 18px;
+}
+
+.table-card-header .menu-trigger {
+    float: right;
+}
+
+.mat-icon.material-icons.small-icon {
+    font-size: 18px;
+}
+
 div.header {
-    flex: 1 1 52px;
-    max-height: 52px;
-    height: 52px;
+    flex: 1 1 48px;
+    max-height: 48px;
+    height: 48px;
     overflow: hidden;
-    /* TODO: Change to fit selected theme */
-    background-color: #3f51b5;
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     overflow: hidden;
 }
@@ -22,26 +35,31 @@ div.header table {
     table-layout: fixed;
 }
 
+div.body table {
+    min-width: 100%;
+}
+
 div.body {
     flex: 1 1;
     overflow: auto;
 }
 
 tr {
-    width: 100%;
+    width: calc(100% + 5px);
     display: block;
-    padding: 0 10px;
+    padding: 0 14px;
+    margin-left: -3px;
+    box-sizing: border-box;
 }
 
-tr:nth-child(even) {
-    /* TODO: Change to fit selected theme */
-    background-color: #e8eaf6;
+tbody tr:hover {
+    background-color: #EEEEEE;
 }
 
 th {
-    height: 44px;
-    line-height: 44px;
-    color: rgba(255,255,255,0.87);
+    height: 48px;
+    line-height: 48px;
+    color: rgba(0,0,0,0.87);
     font-size: 12px;
 }
 
@@ -51,6 +69,7 @@ td {
     color: rgba(0,0,0,0.87);
     max-width: 150px;
     margin-left: 4px;
+    font-size: 14px;
 }
 
 span.table-data-span {
@@ -85,8 +104,7 @@ td, th {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    /* TODO: Change to fit selected theme */
-    background-color: #1a237e;
+    background-color: #CCCCCC;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.2);
