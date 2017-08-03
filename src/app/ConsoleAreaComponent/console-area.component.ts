@@ -3,6 +3,9 @@ import { Observable } from "rxjs/Observable";
 import { MdSnackBar } from "@angular/material";
 
 import { IpcRendererService } from "../../services/ipcrenderer.service";
+import { CredentialsService } from "../../services/credentials.service";
+
+const sfid = require("sfid");
 
 function flatten(obj, options){
     var newObj              = {};
@@ -49,7 +52,7 @@ export class ConsoleAreaComponent{
     private _rawData            : any;
     private _loading            : boolean;
 
-    constructor(private snackBar : MdSnackBar, private ipcRenderer : IpcRendererService){}
+    constructor(private snackBar : MdSnackBar, private ipcRenderer : IpcRendererService, private credentials : CredentialsService){}
 
     @ViewChild("scrollHeader")
     set scrollHeader(scrollHeader) { this._scrollHeader = scrollHeader; }
@@ -117,5 +120,15 @@ export class ConsoleAreaComponent{
             return this.snackBar.open(`:( Awwwn no! Data not copied. Please, try again.`, "DISMISS", { duration: 2500 });
         }
         this.snackBar.open(`Data contents copied to clipboard as ${type.toUpperCase()}`, "DISMISS", { duration: 2500 });
+    }
+
+    openSFObjectPage(objId) {
+        if(this.isSFId(objId)){
+            this.ipcRenderer.openUrlExternal(`${this.credentials.getAccessData().instance_url}/${objId}`);
+        }
+    }
+
+    isSFId(data) : boolean {
+        return sfid.isValid(data);
     }
 }

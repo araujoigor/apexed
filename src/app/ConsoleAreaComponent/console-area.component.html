@@ -30,7 +30,7 @@
                 <tbody>
                     <tr *ngFor="let rowValues of dataArray">
                         <td *ngFor="let entry of rowValues">
-                            <span class="table-data-span" *ngIf="entry; else nullUndefinedEntry">{{""+entry | objectUrl | safe }}</span>
+                            <span [ngClass]="{'table-data-span' : true, 'obj-link': isSFId(entry)}" *ngIf="entry; else nullUndefinedEntry" (click)="openSFObjectPage(entry)">{{""+entry}}</span>
                             <ng-template #nullUndefinedEntry><span class="table-data-span chip">{{""+entry}}</span></ng-template>
                         </td>
                     </tr>

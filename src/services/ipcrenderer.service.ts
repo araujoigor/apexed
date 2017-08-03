@@ -1,7 +1,7 @@
 import { Injectable }  from "@angular/core";
 
 //-- Require as commonjs, since it is an electron dependency
-const { ipcRenderer, clipboard } = require("electron");
+const { ipcRenderer, clipboard, shell } = require("electron");
 
 interface MessageObservers {
     [event: string]: (() => void)[];
@@ -45,6 +45,10 @@ export class IpcRendererService{
 
     public copyToClipboard(data : string) {
         clipboard.writeText(data);
+    }
+
+    openUrlExternal(url) {
+        shell.openExternal(url);
     }
 
 }

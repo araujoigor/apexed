@@ -36,6 +36,7 @@ div.table-card-header, div.header {
     color: rgba(255, 255, 255, 0.85);
 }
 
+
 div.header table {
     table-layout: fixed;
 }
@@ -84,6 +85,11 @@ span.table-data-span {
     max-width: 150px;
     white-space: pre;
     display: block;
+}
+
+span.table-data-span.obj-link {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 span.table-data-span.chip {
