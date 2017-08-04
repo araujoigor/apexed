@@ -1,41 +1,46 @@
-<div class="console-card mat-elevation-z2" *ngIf="(keys && keys.length) || loading">
-
-    <div class="table-card-header">
-        <md-menu #appMenu="mdMenu">
-            <button md-menu-item (click)="copyToClipboard('csv')">CSV</button>
-            <button md-menu-item (click)="copyToClipboard('json')">JSON</button>
-        </md-menu>
-        <h5 class="table-title">Results - <span style="color: #ff4081">{{dataArray.length}}</span> results</h5>
-        <button class="menu-trigger" md-icon-button [mdMenuTriggerFor]="appMenu">
-            <md-icon class="small-icon">content_copy</md-icon>
-        </button>
-    </div>
+<div class="console-card mat-elevation-z2" *ngIf="(keys && keys.length) || loading || error">
 
     <ng-template #loading>
         <md-progress-spinner class="progress-circle" color="primary" mode="indeterminate" value="0"></md-progress-spinner>
     </ng-template>
 
-    <div class="table-wrapper" *ngIf="keys && keys.length; else loading">
-        <div #scrollHeader class="header" >
-            <table class="header">
-                <thead>
-                    <tr>
-                        <th *ngFor="let key of keys">{{key}}</th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="content-wrapper" *ngIf="keys && keys.length || error; else loading">
+        <div class="table-wrapper" *ngIf="keys && keys.length">
+            <div class="table-card-header">
+                <md-menu #appMenu="mdMenu">
+                    <button md-menu-item (click)="copyToClipboard('csv')">CSV</button>
+                    <button md-menu-item (click)="copyToClipboard('json')">JSON</button>
+                </md-menu>
+                <h5 class="table-title">Results - <span style="color: #ff4081">{{dataArray.length}}</span> rows</h5>
+                <button class="menu-trigger" md-icon-button [mdMenuTriggerFor]="appMenu">
+                    <md-icon class="small-icon">content_copy</md-icon>
+                </button>
+            </div>
+            <div #scrollHeader class="header" >
+                <table class="header">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let key of keys">{{key}}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div #scrollBody class="body">
+                <table>
+                    <tbody>
+                        <tr *ngFor="let rowValues of dataArray">
+                            <td *ngFor="let entry of rowValues">
+                                <span [ngClass]="{'table-data-span' : true, 'obj-link': isSFId(entry)}" *ngIf="entry; else nullUndefinedEntry" (click)="openSFObjectPage(entry)">{{""+entry}}</span>
+                                <ng-template #nullUndefinedEntry><span class="table-data-span chip">{{""+entry}}</span></ng-template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div #scrollBody class="body">
-            <table>
-                <tbody>
-                    <tr *ngFor="let rowValues of dataArray">
-                        <td *ngFor="let entry of rowValues">
-                            <span [ngClass]="{'table-data-span' : true, 'obj-link': isSFId(entry)}" *ngIf="entry; else nullUndefinedEntry" (click)="openSFObjectPage(entry)">{{""+entry}}</span>
-                            <ng-template #nullUndefinedEntry><span class="table-data-span chip">{{""+entry}}</span></ng-template>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="error-section" *ngIf="error">
+            <h3>Error while executing query - {{error.errorCode}}</h3>
+            <textarea readonly>{{error.message}}</textarea>
         </div>
     </div>
 </div>

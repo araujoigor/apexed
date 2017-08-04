@@ -4,6 +4,7 @@ import { MdSnackBar } from "@angular/material";
 
 import { IpcRendererService } from "../../services/ipcrenderer.service";
 import { CredentialsService } from "../../services/credentials.service";
+import { RequestError } from "../../services/salesforce.service";
 
 const sfid = require("sfid");
 
@@ -50,7 +51,10 @@ export class ConsoleAreaComponent{
     private _keys               : string[];
     private dataArray           : any[][];
     private _rawData            : any;
-    private _loading            : boolean;
+
+    @Input()
+    loading                     : boolean;
+    error                       : RequestError;
 
     constructor(private snackBar : MdSnackBar, private ipcRenderer : IpcRendererService, private credentials : CredentialsService){}
 
@@ -72,18 +76,15 @@ export class ConsoleAreaComponent{
         }
     }
 
-    @Input()
-    set loading(isLoading : boolean) { this._loading = isLoading;}
-    get loading() { return this._loading; }
-
     get keys(){ return this._keys; }
     get rawData() { return this._rawData; }
 
     @Input()
     set data(data : any[] | string){
+        this.error      = null;
         this._keys      = null;
         this.dataArray  = [];
-        this._loading   = false;
+        this.loading   = false;
         this._rawData   = data;
         if(typeof data === "object"){
             data = data.map(entry => flatten(entry, { filterOut: "attributes" }));

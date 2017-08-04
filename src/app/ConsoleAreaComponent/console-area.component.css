@@ -1,4 +1,4 @@
-.console-card, div.table-wrapper {
+.console-card, div.table-wrapper, div.content-wrapper {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -20,6 +20,28 @@
 
 .mat-icon.material-icons.small-icon {
     font-size: 18px;
+}
+
+.error-section {
+    font-family: monospace;
+    height: 100%;
+    background-color: rgba(255,0,0,0.20);
+    padding: 10px;
+    color: #ad0303;
+    display: flex;
+    flex-direction: column;
+}
+
+.error-section textarea {
+    background-color: transparent;
+    width: 100%;
+    border: 0;
+    font-family: monospace;
+    font-size: 14px;
+    color: inherit;
+    outline: 0;
+    resize: none;
+    flex: 1;
 }
 
 div.header {
