@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { TabComponent } from "./TabComponent/tab.component";
 import { IpcRendererService } from "../services/ipcrenderer.service";
 
@@ -7,11 +7,17 @@ import { IpcRendererService } from "../services/ipcrenderer.service";
     templateUrl : "./apexed.component.html",
     styleUrls   : [ "./apexed.component.css" ]
 })
-export class ApexedComponent{
+export class ApexedComponent implements OnDestroy {
 
     constructor(private ipcRendererService : IpcRendererService){
-        this.ipcRendererService.registerMessageObserver("preferences", () => {
-            this.ipcRendererService.sendMessage("settings-modal", "open");
-        });
+        this.ipcRendererService.registerMessageObserver("preferences", this.openPreferences);
+    }
+
+    openPreferences = () => {
+        this.ipcRendererService.sendMessage("settings-modal", "open");
+    }
+
+    ngOnDestroy() {
+        this.ipcRendererService.unregisterMessageObserver("preferences", this.openPreferences);
     }
 }

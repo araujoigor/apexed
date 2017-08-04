@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { IpcRendererService } from "../../services/ipcrenderer.service";
 
 @Component({
@@ -6,10 +6,10 @@ import { IpcRendererService } from "../../services/ipcrenderer.service";
     templateUrl : "./tabs-controller.component.html",
     styleUrls   : [ "./tabs-controller.component.css" ]
 })
-export class TabsControllerComponent{
+export class TabsControllerComponent implements OnDestroy {
     tabs : string[] = ["Tab #1"];
 
-    constructor(ipcRendererService : IpcRendererService){
+    constructor(private ipcRendererService : IpcRendererService){
         ipcRendererService.registerMessageObserver("new-file", this.createNewTab);
     }
 
@@ -23,5 +23,9 @@ export class TabsControllerComponent{
         if(index >= 0){
             this.tabs.splice(index, 1);
         }
+    }
+
+    ngOnDestroy() {
+        this.ipcRendererService.unregisterMessageObserver("new-file", this.createNewTab);
     }
 }
