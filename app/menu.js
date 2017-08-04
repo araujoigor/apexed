@@ -16,6 +16,7 @@ const template = [
             { label: "Save As...", accelerator: "CmdOrCtrl+Shift+S"     },
             { label: "Save All"                                         },
             { type : "separator"                                        },
+            { label: "Execute Code", accelerator: "CmdOrCtrl+Enter"     },
             { role : "quit"                                             }
         ]
     },
