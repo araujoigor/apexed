@@ -6,7 +6,8 @@ import { IpcRendererService } from "../../services/ipcrenderer.service";
 import { CredentialsService } from "../../services/credentials.service";
 import { RequestError } from "../../services/salesforce.service";
 
-const sfid = require("sfid");
+import * as flatten from "simple-object-flatten";
+import * as sfid    from "sfid";
 
 function flatten(obj, options){
     var newObj              = {};
@@ -55,6 +56,8 @@ export class ConsoleAreaComponent{
     @Input()
     loading                     : boolean;
     error                       : RequestError;
+    sortColumnIndex             : number;
+    sortingDirection            : number;
 
     constructor(private snackBar : MdSnackBar, private ipcRenderer : IpcRendererService, private credentials : CredentialsService){}
 
@@ -81,11 +84,12 @@ export class ConsoleAreaComponent{
 
     @Input()
     set data(data : any[] | string){
-        this.error      = null;
-        this._keys      = null;
-        this.dataArray  = [];
-        this.loading   = false;
-        this._rawData   = data;
+        this.error              = null;
+        this._keys              = null;
+        this.dataArray          = [];
+        this.loading            = false;
+        this._rawData           = data;
+        this.sortColumnIndex    = null;
         if(typeof data === "object"){
             data = data.map(entry => flatten(entry, { filterOut: "attributes" }));
             this._keys = Object.keys(data[0] || {});
@@ -94,6 +98,16 @@ export class ConsoleAreaComponent{
                 this.dataArray.push(Object.values(data[i]));
             }
         }
+    }
+
+    sortData(fieldIndex) {
+        this.sortingDirection   = ((fieldIndex === this.sortColumnIndex) ? -1 : 1) * (this.sortingDirection || 1);
+        this.sortColumnIndex    = fieldIndex;
+        this.dataArray.sort((entry1, entry2) => {
+            if (entry1[fieldIndex] < entry2[fieldIndex]) { return -1 * this.sortingDirection; }
+            if (entry1[fieldIndex] > entry2[fieldIndex]) { return 1  * this.sortingDirection; }
+            return 0;
+        });
     }
 
     isNumber(data) { return typeof data === "number" }

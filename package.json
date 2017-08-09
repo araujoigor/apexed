@@ -4,15 +4,16 @@
   "description": "Graphical User Interface for RealTime Apex and SOQL execution",
   "main": "app/index.js",
   "scripts": {
-    "build": "ngc && rollup -c rollup-config.js",
+    "build:dev": "NODE_ENV=development && ngc && rollup -c rollup-config.js",
+    "build:prod": "NODE_ENV=production && ngc && rollup -c rollup-config.js",
     "clean": "rm -rf gen/ app/build.gen.js ",
     "start:dev": "electron app/index.js --dev",
     "start": "electron app/index.js",
-    "build:start": "npm run build && npm run start",
-    "build:start:dev": "npm run build && npm run start:dev",
+    "build:start": "npm run build:dev && npm run start",
+    "build:start:dev": "npm run build:dev && npm run start:dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder",
+    "pack": "npm run build:dev && electron-builder --dir",
+    "dist": "npm run build:prod && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
@@ -44,6 +45,7 @@
     "electron-builder": "^19.7.1",
     "rollup": "^0.43.0",
     "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "typescript": "~2.4.0"
@@ -65,6 +67,7 @@
     "material-design-icons": "^3.0.1",
     "rxjs": "^5.1.0",
     "sfid": "^1.1.0",
+    "simple-object-flatten": "^0.0.1",
     "zone.js": "^0.8.4"
   }
 }

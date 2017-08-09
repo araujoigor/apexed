@@ -1,6 +1,20 @@
-import nodeResolve from "rollup-plugin-node-resolve";
-import commonjs    from "rollup-plugin-commonjs";
-import uglify      from "rollup-plugin-uglify";
+import nodeResolve  from "rollup-plugin-node-resolve";
+import commonjs     from "rollup-plugin-commonjs";
+import uglify       from "rollup-plugin-uglify";
+import json         from "rollup-plugin-json"
+
+const plugins = [
+    nodeResolve({jsnext: true, module: true}),
+    commonjs({
+        include: ["node_modules/rxjs/**", "node_modules/ace-builds/**", "node_modules/sfid/**", "node_modules/simple-object-flatten/**"],
+        extensions: [ '.js', '.json' ]
+    }),
+    json({
+        include: 'node_modules/sfid/**',
+    })
+];
+
+if (process.env.NODE_ENV === "production") { plugins.push(uglify()); }
 
 export default {
     entry: "./gen/bundle/src/main.js",
@@ -18,11 +32,5 @@ export default {
         // console.warn everything else
         console.warn( warning.message );
     },
-    plugins: [
-        nodeResolve({jsnext: true, module: true}),
-        commonjs({
-            include: ["node_modules/rxjs/**", "node_modules/ace-builds/**"]
-        }),
-        uglify()
-    ]
+    plugins: plugins
 }
