@@ -40,11 +40,13 @@ export class CredentialsService {
                        `grant_type=password&client_id=${this.clientId}&client_secret=${this.clientSecret}&username=${credentials.username}&password=${credentials.password}`,
                        { headers: headers }
                     )
-                    .map( (response : Response) => response.json())
+                    .map( (response : Response) => {
+                        let json = response.json();
+                        this.setAccessData(json);
+                        return json;
+                    })
                     .catch( error => Observable.throw(error.json().error || "Server Error"));
             });
-
-        observable.subscribe( (data : AccessDataModel) => { console.log(data); this.setAccessData(data); }, error => console.log(error));
 
         return observable;
     }
