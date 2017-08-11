@@ -2,7 +2,7 @@ import { Component, ViewChild, OnDestroy } from "@angular/core";
 
 import { Observable } from 'rxjs/Rx';
 
-import { SalesforceService, LanguagesMap, RequestError } from "../../services/salesforce.service";
+import { SalesforceService, LanguagesMap, RequestError, QueryResult } from "../../services/salesforce.service";
 import { EditorAreaComponent } from "../EditorAreaComponent/editor-area.component";
 import { ConsoleAreaComponent } from "../ConsoleAreaComponent/console-area.component";
 import { IpcRendererService } from "../../services/ipcrenderer.service";
@@ -32,15 +32,14 @@ export class TabComponent implements OnDestroy{
     }
 
     public execute = () => {
-        this.queryTimestamp      = Date.now();
-        this.consoleArea.data    = [];
-        this.consoleArea.loading = true;
-
-        this.salesforce.execute(this.currentLanguage, this.editorArea.getEditorContent())
-            .subscribe(this.handleQueryResult, this.handleQueryError);
+        this.queryTimestamp         = Date.now();
+        this.consoleArea.data       = [];
+        this.consoleArea.loading    = true;
+        let method                  = (this.currentLanguage === "soql") ? this.salesforce.executeSOQL : this.salesforce.executeApex;
+        method(this.editorArea.getEditorContent()).subscribe(this.handleQueryResult, this.handleQueryError);
     }
 
-    public handleQueryResult = (resp) => {
+    public handleQueryResult = (resp : QueryResult) => {
         console.log(resp);
         this.consoleArea.data = resp.records;
 
