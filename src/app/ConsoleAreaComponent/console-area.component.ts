@@ -6,39 +6,8 @@ import { IpcRendererService } from "../../services/ipcrenderer.service";
 import { CredentialsService } from "../../services/credentials.service";
 import { RequestError } from "../../services/salesforce.service";
 
-import * as flatten from "simple-object-flatten";
+import flatten from "simple-object-flatten";
 import * as sfid    from "sfid";
-
-function flatten(obj, options){
-    var newObj              = {};
-    obj                     = obj;
-    options                 = options                   || {};
-    options.separator       = options.separator         || ".";
-    options.arraysAsObjects = options.arraysAsObjects   || false;
-
-    //-- Arrays and strings depends on the arraysAsObjects arguemnt
-    //-- Any types different from Object, Array and String early return
-    //-- Single character strings early return always
-    if( [null, undefined, false].indexOf(obj) !== -1 ||
-        (!options.arraysAsObjects && [Array, String].indexOf(obj.constructor) !== -1) ||
-        [Object, Array, String].indexOf(obj.constructor) === -1 ||
-        (obj.constructor === String && obj.length === 1)){
-        return obj;
-    }
-
-    for (var key in obj) {
-        if(([].concat.apply([], [options.filterOut]) || []).indexOf(key) !== -1) { continue };
-        var value = flatten(obj[key], options);
-        if([null, undefined, false].indexOf(value) === -1 && value.constructor === Object){
-            for(var childkey in value){
-                newObj[key+options.separator+childkey] = value[childkey];
-            }
-            continue;
-        }
-        newObj[key] = value;
-    }
-    return newObj;
-}
 
 @Component({
     selector    : "console-area",
